@@ -1,0 +1,14 @@
+services:
+  leafwiki:
+    image: ghcr.io/perber/leafwiki:latest
+    container_name: leafwiki
+    user: 1000:1000
+    ports:
+      - "802:8080"
+    environment:
+      - LEAFWIKI_JWT_SECRET=1234
+      - LEAFWIKI_ADMIN_PASSWORD=1234
+      - LEAFWIKI_ALLOW_INSECURE=true  # Required for plain HTTP. Omit for HTTPS (ensure `X-Forwarded-Proto: https` is forwarded).
+    volumes:
+      - ./leafwiki-data:/app/data
+    restart: unless-stopped
